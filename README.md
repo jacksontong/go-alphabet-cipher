@@ -1,5 +1,7 @@
 # alphabet-cipher
 
+[![Go](https://github.com/jacksontong/go-alphabet-cipher/actions/workflows/go.yml/badge.svg)](https://github.com/jacksontong/go-alphabet-cipher/actions/workflows/go.yml)
+
 Lewis Carroll published a cipher known as
 [The Alphabet Cipher](http://en.wikipedia.org/wiki/The_Alphabet_Cipher)
 
