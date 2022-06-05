@@ -43,3 +43,7 @@ func findRepeatedSecret(cipher string, message string) string {
 
 	return repeatedSecret.String()
 }
+
+func isRepeated(secret string, message string) bool {
+	return len(secret) > 0 && len(message)%len(secret) == 0 && strings.Repeat(secret, len(message)/len(secret)) == message
+}

@@ -41,7 +41,7 @@ func findSecret(repeatedSecret string) string {
 		current := repeatedSecret[:i]
 		next := repeatedSecret[i : 2*i]
 
-		if len(secret) > 0 && len(current)%len(secret) == 0 {
+		if isRepeated(secret, current) {
 			// must be repeated
 			continue
 		}

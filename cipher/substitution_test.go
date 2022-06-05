@@ -275,3 +275,55 @@ func Test_findRepeatedSecret(t *testing.T) {
 		})
 	}
 }
+
+func Test_isRepeated(t *testing.T) {
+	type args struct {
+		secret  string
+		message string
+	}
+	tests := []struct {
+		name string
+		args args
+		want bool
+	}{
+		{
+			name: "ab abab",
+			args: args{
+				secret:  "ab",
+				message: "abab",
+			},
+			want: true,
+		},
+		{
+			name: "abc abcabcabc",
+			args: args{
+				secret:  "ab",
+				message: "abab",
+			},
+			want: true,
+		},
+		{
+			name: "'' abab",
+			args: args{
+				secret:  "",
+				message: "abab",
+			},
+			want: false,
+		},
+		{
+			name: "abc abcabcx",
+			args: args{
+				secret:  "abc",
+				message: "abcabcx",
+			},
+			want: false,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := isRepeated(tt.args.secret, tt.args.message); got != tt.want {
+				t.Errorf("isRepeated() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
