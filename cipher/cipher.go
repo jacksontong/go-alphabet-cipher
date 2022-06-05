@@ -1,13 +1,54 @@
 package cipher
 
+import (
+	"strings"
+)
+
 func Encode(keyword string, message string) string {
-	return ""
+	encodedMessage := strings.Builder{}
+	secret := repeatedSecret(keyword, message)
+
+	for i, r := range message {
+		substitution := findSubstitution(rune(secret[i]), r)
+		encodedMessage.WriteRune(substitution)
+	}
+
+	return encodedMessage.String()
 }
 
 func Decode(keyword string, message string) string {
-	return ""
+	decodedMessage := strings.Builder{}
+	secret := repeatedSecret(keyword, message)
+
+	for i, r := range message {
+		row := revertSubstitution(r, rune(secret[i]))
+		decodedMessage.WriteRune(row)
+	}
+
+	return decodedMessage.String()
 }
 
 func Decipher(cipher string, message string) string {
-	return ""
+	repeatedSecret := findRepeatedSecret(cipher, message)
+
+	return findSecret(repeatedSecret)
+}
+
+func findSecret(repeatedSecret string) string {
+	secret := ""
+
+	for i := 1; 2*i < len(repeatedSecret); i++ {
+		current := repeatedSecret[:i]
+		next := repeatedSecret[i : 2*i]
+
+		if len(secret) > 0 && len(repeatedSecret)%len(secret) != 0 {
+			continue
+		}
+
+		if current == next {
+			secret = current
+		}
+	}
+
+	return secret
 }
